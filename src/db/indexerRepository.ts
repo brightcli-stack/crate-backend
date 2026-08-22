@@ -136,7 +136,11 @@ export async function applyEventBatchAndAdvanceCursor(
             );
           }
         } catch (err) {
-          console.warn("[indexerRepository] failed to insert sale record", err);
+          console.warn(
+            "[indexerRepository] failed to insert sale record — " +
+              `tx_hash=${event.txHash} buyer=${event.buyer} sample_id=${event.sampleId} price=${event.price}`,
+            err,
+          );
         }
         // Webhook delivery is an optional migration for deployments upgrading
         // from the indexer schema. Keep sale accounting usable while that

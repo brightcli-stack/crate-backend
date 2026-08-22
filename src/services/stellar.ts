@@ -37,11 +37,11 @@ export async function getEarningsHistory(address: string) {
   }));
 }
 
-export async function getSalesByAddress(address: string) {
+export async function getSalesByAddress(address: string, limit: number = TX_LIMIT) {
   if (!STELLAR_ADDR_RE.test(address)) {
     throw new Error(`Invalid Stellar address: ${address}`);
   }
-  const sales = await getSalesBySeller(address);
+  const sales = await getSalesBySeller(address, limit);
   return {
     totalEarnings: (await getTotalEarnings(address)).toString(),
     sales: sales.map(s => ({
